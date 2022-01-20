@@ -1,0 +1,21 @@
+.employee-data {
+  display: flex;
+  flex-direction: column;
+}
+.employee-column-title {
+  display: flex;
+  justify-content: space-evenly;
+}
+.employee-column-data {
+  display: flex;
+  justify-content: space-evenly;
+}
+s .employee-show-more-title {
+}
+.employee-show-more-data {
+  display: flex;
+  flex-direction: column;
+}
+.employee-show-more-row {
+  display: flex;
+}
