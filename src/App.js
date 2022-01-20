@@ -33,7 +33,7 @@ function App() {
       <BrowserRouter>
         <Container>
           <Navbar />
-          <Container className={classes.boxContent} maxWidth="m">
+          <Container className={classes.boxContent} maxWidth="md">
             <Routes path="/" exact component={Employees} />
             <ListOfEmployess />
           </Container>

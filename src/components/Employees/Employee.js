@@ -37,7 +37,7 @@ const Employee = () => {
           <Typography variant="subtitle1">Ikechukwu </Typography>
           <Typography variant="subtitle1">Ekedede </Typography>
 
-          <Typography variant="substitle1">
+          <Typography variant="subtitle1">
             <FaceIcon />
           </Typography>
         </div>
@@ -68,7 +68,7 @@ const Employee = () => {
           <Button>
             <EditIcon />
           </Button>
-          <Button color="warning">
+          <Button color="secondary">
             <DeleteForeverIcon />
           </Button>
         </ButtonGroup>

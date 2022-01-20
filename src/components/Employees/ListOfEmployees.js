@@ -22,8 +22,8 @@ const ListOfEmployeess = () => {
   return (
     <div className={classes.employeesStyle}>
       <div className={classes.headingStyle}>
-        <Typography>
-          <h1 style={{ margin: -4 }}>Employees</h1>
+        <Typography variant="subtitle1" mr= {{mr:2}}>
+          Employees
         </Typography>
         <Typography>
           <Button variant="contained">Expand All </Button>
