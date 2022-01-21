@@ -34,7 +34,7 @@ function App() {
         <Container>
           <Navbar />
           <Container className={classes.boxContent} maxWidth="md">
-            <Routes path="/" exact component={Employees} />
+            <Routes path="/" component={Employees} />
             <ListOfEmployess />
           </Container>
         </Container>

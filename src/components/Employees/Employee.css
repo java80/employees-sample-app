@@ -13,8 +13,9 @@
 s .employee-show-more-title {
 }
 .employee-show-more-data {
-  display: flex;
-  flex-direction: column;
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .employee-show-more-row {
   display: flex;
