@@ -22,3 +22,8 @@ export const getEmployees = () => {
       });
   }
 }
+
+
+export const deleteEmployee = (index) => {
+  return {type:'DEL_EMPLOYEES',data:index}
+}

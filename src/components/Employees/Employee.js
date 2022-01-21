@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Button, ButtonGroup } from "@material-ui/core";
-import FaceIcon from "@mui/icons-material/Face";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@material-ui/styles";
 import "./Employee.css";
+import useCollapse from "react-collapsed";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getEmployees } from "../../store/actions/employeeActions";
 
 const useStyles = makeStyles({
   employeeStyle: {
@@ -21,65 +24,116 @@ const useStyles = makeStyles({
     width: "50px",
     height: "50px",
   },
+  buttonStyle: {
+    cursor: "pointer",
+  },
 });
 
 const Employee = ({ data }) => {
+  const dispatch = useDispatch();
+  const deleteEmployee = () => {
+    axios
+      .delete("/api/employees/" + data.id)
+      .then(() => {
+        dispatch(getEmployees());
+      })
+      .catch((err) => console.log(err));
+  };
+
   console.log(data);
+  const [isExpanded, setExpanded] = useState(false);
+  const { getCollapseProps, getToggleProps } = useCollapse();
+  const onClickEachExpandButton = () => {
+    setExpanded(!isExpanded);
+  };
   const classes = useStyles();
   return (
     <div className={classes.employeeStyle}>
       {/* <h2>Employee</h2> */}
       <div className="employee-data">
-        <div className="employee-column-title">
+        <div
+          style={{ width: isExpanded ? "70%" : "120%" }}
+          className="employee-column-title"
+        >
           <Typography variant="subtitle1">First Name: </Typography>
           <Typography variant="subtitle1">Last Name: </Typography>
-
           <Typography>Avatar:</Typography>
         </div>
-        <div className="employee-column-data">
+        <div
+          style={{ width: isExpanded ? "70%" : "120%" }}
+          className="employee-column-title"
+        >
           <Typography variant="subtitle1">{data.firstName} </Typography>
           <Typography variant="subtitle1">{data.lastName} </Typography>
 
           <Typography variant="subtitle1">
             <img
+              style={{ height: 35 }}
               src={data.avatar}
               alt={data.firstName + ` ${data.lastName} avatar`}
               className={classes.avatar}
             />
           </Typography>
         </div>
-        <div className="employee-show-more-row">
+        <div className="employee-show-more-row" {...getCollapseProps()}>
           <div className="employee-show-more-title">
-            <Typography variant="body2">Bio:</Typography>
-            <Typography variant="subtitle1">Email:</Typography>
-            <Typography variant="subtitle1">Phone</Typography>
-            <Typography variant="subtitle1">Address:</Typography>
-            <Typography variant="subtitle1">City:</Typography>
-            <Typography variant="subtitle1">State:</Typography>
-            <Typography variant="subtitle1">Zip:</Typography>
+            <div className="row">
+              <Typography variant="subtitle1">Bio:</Typography>
+              <Typography variant="subtitle1">{data.bio}</Typography>
+            </div>
+
+            <div className="row">
+              <Typography variant="subtitle1">Email:</Typography>
+              <Typography variant="subtitle1">{data.email}</Typography>
+            </div>
+
+            <div className="row">
+              <Typography variant="subtitle1">Phone</Typography>
+              <Typography variant="subtitle1">{data.phone}</Typography>
+            </div>
+
+            <div className="row">
+              <Typography variant="subtitle1">Address:</Typography>
+              <Typography variant="subtitle1">
+                {data.address.streetAddress}
+              </Typography>
+            </div>
+
+            <div className="row">
+              <Typography variant="subtitle1">City:</Typography>
+              <Typography variant="subtitle1">{data.address.city}</Typography>
+            </div>
+
+            <div className="row">
+              <Typography variant="subtitle1">State:</Typography>
+              <Typography variant="subtitle1"> {data.address.state}</Typography>
+            </div>
+
+            <div className="row">
+              <Typography variant="subtitle1">Zip:</Typography>
+              <Typography variant="subtitle1">
+                {" "}
+                {data.address.zipCode}
+              </Typography>
+            </div>
           </div>
-          <div className="employee-show-more-data">
-            <Typography variant="subtitle1">{data.bio}</Typography>
-            <Typography variant="subtitle1">{data.email}</Typography>
-            <Typography variant="subtitle1">{data.phone}</Typography>
-            <Typography variant="subtitle1">
-              {data.address.streetAddress}
-            </Typography>
-            <Typography variant="subtitle1">{data.address.city}</Typography>
-            <Typography variant="subtitle1"> {data.address.state}</Typography>
-            <Typography variant="subtitle1"> {data.address.zipCode}</Typography>
-          </div>
+          <div className="employee-show-more-data"></div>
         </div>
       </div>
       <div>
         <ButtonGroup size="medium" aria-label="outlined primary button group">
-          <Button color="primary">
-            <ExpandMoreIcon />
+          <Button
+            color="primary"
+            className={classes.buttonStyle}
+            {...getToggleProps({ onClick: onClickEachExpandButton })}
+          >
+            {/* <ExpandMoreIcon /> */}
+            {isExpanded ? "Collapse" : "More"}{" "}
           </Button>
           <Button>
             <EditIcon />
           </Button>
-          <Button color="secondary">
+          <Button onClick={deleteEmployee} color="secondary">
             <DeleteForeverIcon />
           </Button>
         </ButtonGroup>
