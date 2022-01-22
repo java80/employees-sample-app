@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 import { makeServer } from "./server";
 import ListOfEmployess from "./components/Employees/ListOfEmployees";
+import AddNewEmployee from "./components/AddNewEmployee";
 
 if (process.env.NODE_ENV === "development") {
   makeServer({ environment: "development" });
@@ -35,6 +36,7 @@ function App() {
           <Navbar />
           <Container className={classes.boxContent} maxWidth="md">
             <Routes path="/" component={Employees} />
+            <AddNewEmployee />
             <ListOfEmployess />
           </Container>
         </Container>

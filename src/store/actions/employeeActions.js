@@ -3,27 +3,25 @@ import Employee from "../../components/Employees/Employee";
 import Employees from "../../components/Employees/Employees";
 //import { makeServer } from "../../server";
 
-
 export const getEmployees = () => {
-  console.log('stating function')
+  console.log("stating function");
   return (dispactch, getState) => {
-    console.log('making call')
+    console.log("making call");
     axios
       .get("/api/employees")
       .then((res) => {
-        console.log('res data',res.data)
+        console.log("res data", res.data);
         dispactch({
           type: "GET_EMPLOYEES",
-          data:res.data.employees,
+          data: res.data.employees,
         });
       })
       .catch((error) => {
         console.log(error.response);
       });
-  }
-}
-
+  };
+};
 
 export const deleteEmployee = (index) => {
-  return {type:'DEL_EMPLOYEES',data:index}
-}
+  return { type: "DEL_EMPLOYEES", data: index };
+};
