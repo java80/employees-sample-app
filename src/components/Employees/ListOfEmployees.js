@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Typography, Button } from "@material-ui/core";
@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core";
 import Employee from "./Employee";
 import { getEmployees } from "../../store/actions/employeeActions";
 import useCollapse from "react-collapsed";
+import Avatar from "../../avatar.png";
 
 const useStyles = makeStyles({
   employeesStyle: {
@@ -21,22 +22,21 @@ const useStyles = makeStyles({
     height: "45px",
   },
   buttonStyle: {
-    cursor:"pointer"
-  }
+    cursor: "pointer",
+  },
 });
 const ListOfEmployeess = () => {
-  
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [isExpanded, setExpanded] = useState(false);
-  
+
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
   const onClickExpandButton = () => {
-    setExpanded(!isExpanded)
-  }
-  
-  console.log(state);
+    setExpanded(!isExpanded);
+  };
+
+  //console.log(state);
 
   useEffect(() => {
     dispatch(getEmployees());
@@ -48,7 +48,10 @@ const ListOfEmployeess = () => {
           Employees
         </Typography>
         <Typography>
-          <Button variant="contained" {...getToggleProps({onClick:onClickExpandButton})}>
+          <Button
+            variant="contained"
+            {...getToggleProps({ onClick: onClickExpandButton })}
+          >
             {isExpanded ? "Collapse" : "Expand All"}{" "}
           </Button>
         </Typography>

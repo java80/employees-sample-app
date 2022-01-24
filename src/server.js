@@ -1,7 +1,6 @@
 import { createServer, Model } from "miragejs";
 import faker from "faker";
 import avatar from "./avatar.png";
-
 export function makeServer({ environment = "test" } = {}) {
   let server = createServer({
     environment,
@@ -36,6 +35,11 @@ export function makeServer({ environment = "test" } = {}) {
         },
         { timing: 1000 }
       );
+      this.post("/employees", (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        console.log(attrs);
+        return schema.employees.create(attrs);
+      });
       this.patch(
         "/employees/:id",
         (schema, request) => {

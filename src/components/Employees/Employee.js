@@ -9,6 +9,7 @@ import useCollapse from "react-collapsed";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getEmployees } from "../../store/actions/employeeActions";
+import Avatar from "../../avatar.png";
 
 const useStyles = makeStyles({
   employeeStyle: {
@@ -69,7 +70,7 @@ const Employee = ({ data }) => {
           <Typography variant="subtitle1">
             <img
               style={{ height: 35 }}
-              src={data.avatar}
+              src={data.avatar ? data.avatar : Avatar}
               alt={data.firstName + ` ${data.lastName} avatar`}
               className={classes.avatar}
             />
